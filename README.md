@@ -9,3 +9,5 @@ TODO:
 - Containerise stuff
 - Any other suggestions, additional features
 - Tweak the sheet so it isn't literally an exact copy of cat nuke thing
+
+The repo is only really public so the other tech folk can look at it, but I'm open to taking it private or accepting any pull requests if this is deemed worthy of continuing.
