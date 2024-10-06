@@ -95,16 +95,16 @@ fn main() -> std::io::Result<()> {
             writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
             writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
             writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-
         }
     }
     writeln!(&mut f, "{}", HTMLSUF)?;
     Ok(())
 }
 
+
 fn nenter() -> String {
     let mut testn = String::new();
-    print!("Please enter a your main Nationstates nation: ");
+    print!("Please enter your main Nationstates nation: ");
     let _ = stdout().flush();
     stdin()
         .read_line(&mut testn)

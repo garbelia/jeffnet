@@ -1,0 +1,10 @@
+[package]
+name = "src-str"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.12.8", features = ["blocking"]}
+scraper = { version = "0.20.0" }
+futures-io = { version = "0.3.31-beta" }
+getch-rs = "0.2.0"
