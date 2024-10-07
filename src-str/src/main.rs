@@ -4,19 +4,18 @@ use std::path::Path;
 use std::fs;
 use std::io::Write;
 use scraper::{Html, Selector};
-use std::{thread, time};
 use getch_rs::{Getch, Key};
 
-fn main() {
+fn main() -> std::io::Result<()> {
+    println!("Press Alt+S to process a nation, and any other key to move to the next in the list.");
     let g = Getch::new();
     let nlist: Vec<String> = listout();
-    let ratel = time::Duration::from_millis(1000);
+    let mut tlist: Vec<(String,String)> = Vec::new();
     for n in nlist.iter() {
-        let mut result = g.getch().unwrap();
+        let result = g.getch().unwrap();
         if result == Key::Alt('s') {
-            scrape(n.clone());
+            tlist.push(scrape(n.clone()));
         }
-        let mut result = Key::EOF;
         loop {            
             match g.getch() {
                 Ok(Key::Alt('s')) => continue,
@@ -24,22 +23,31 @@ fn main() {
             }
         }
     }
+    let _ = fs::write("SORTEDnations.txt", "");
+    let mut f = File::options().append(true).open("SORTEDnations.txt")?;
+    for n in tlist.iter() {
+        writeln!(&mut f, "{:?}", n)?;
+    }
+    Ok(())
 }
 
-fn scrape(n: String) {
+fn scrape(n: String) -> (String, String) {
     let n1 = "https://nationstates.net/nation=";
     let n2 = "/page=nukes?generated_by=jeffnet_by_garbelia_used_by_garbelia";
     let n5 = n1.to_string() + &n + n2;
     let response = reqwest::blocking::get(n5).unwrap().text().unwrap();
-    
     let doc_body = Html::parse_document(&response);
-
     let strat = Selector::parse(".fancylike").unwrap();
-        
-    for strat in doc_body.select(&strat) {
-        let spec = strat.text().collect::<Vec<_>>();
-        println!("{:?}",spec)
+    let mut specs: String = String::new(); 
+        for strat in doc_body.select(&strat) {
+            let spec = strat.text().collect::<Vec<_>>();
+            if let Some(first_spec) = spec.get(0) {
+                specs = first_spec.to_string();
+            }
     }
+    println!("Nation {} has been processed.",n);
+    let nnlist = (n.clone(), specs);
+    nnlist
 }
 
 fn listout() -> Vec<String> {

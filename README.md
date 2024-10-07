@@ -3,8 +3,8 @@ JEFFnet initial version 0.1.
 Currently just basically a rust rewrite of Cat Nuke Thing, minus anything that interacts with NS directly, any of the userscript stuff, or the containerise stuff. Those will come later.
 
 TODO:
-- Nation spec categoriser
-- Setup bash script
+- Nation spec categoriser - DONE V0.1.2
+- Setup bash script - DONE V0.1.2
 - Userscript
 - Containerise stuff
 - Any other suggestions, additional features

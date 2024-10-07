@@ -3,7 +3,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 use std::fs;
 use std::io::Write;
-use std::io::{stdin, stdout};
+use text_io::read;
 
 const HTMLPRE: &str = r#"<!doctype html>
 <html>
@@ -77,48 +77,95 @@ const HTMLSUF: &str = r#"
 </body>
 </html>"#;
 
+#[derive(Debug)]
+#[derive(PartialEq)]
+enum Classification {
+    Strategic,
+    Intel,
+    Military,
+    Economic,
+}
+
+#[derive(Debug)]
+struct Nation {
+    n: String,
+    t: Classification,
+}
 
 fn main() -> std::io::Result<()> {
     let mn = nenter();
     let nlist = listout();
     let _ = fs::write("sheet.html",HTMLPRE);
     let mut f = File::options().append(true).open("sheet.html")?;
+    let mut intelv = Vec::new();
+    let mut stratv = Vec::new();
+    let mut milv = Vec::new();
+    let mut ecov = Vec::new();
     for n in nlist.iter() {
-        if n == "Intel" || n == "strategic" || n == "military" || n == "economic" {
-            let t = webunsafe(n);
-            writeln!(&mut f, r#"\n</table>\n<h2>{} Specialists</h2>\n<table class = "center">"#, t)?;
-        } else {
-            let t = webunsafe(&n);
-            writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
-            writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-            writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-            writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-            writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-            writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        match n.t {
+            Classification::Intel => intelv.push(n.n.clone()),
+            Classification::Strategic => stratv.push(n.n.clone()),
+            Classification::Military => milv.push(n.n.clone()),
+            Classification::Economic => ecov.push(n.n.clone()),
         }
     }
+    writeln!(&mut f, r#"<h2>Strategic Specialists</h2><table class = "center">"#)?;
+    for i in stratv.iter() {
+        let n = str::replace(&i, r#"""#, "");
+        let t = webunsafe(&n);
+        writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+    }
+    writeln!(&mut f, r#"</table><h2>Economic Specialists</h2><table class = "center">"#)?;
+    for i in ecov.iter() {
+        let n = str::replace(&i, r#"""#, "");
+        let t = webunsafe(&n);
+        writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+    }
+    writeln!(&mut f, r#"</table><h2>Intel Specialists</h2><table class = "center">"#)?;
+    for i in intelv.iter() {
+        let n = str::replace(&i, r#"""#, "");
+        let t = webunsafe(&n);
+        writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+    }
+    writeln!(&mut f, r#"</table><h2>Military Specialists</h2><table class = "center">"#)?;
+    for i in milv.iter() {
+        let n = str::replace(&i, r#"""#, "");
+        let t = webunsafe(&n);
+        writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+    }
+    writeln!(&mut f, "</table>")?;
     writeln!(&mut f, "{}", HTMLSUF)?;
     Ok(())
 }
 
 
 fn nenter() -> String {
-    let mut testn = String::new();
     print!("Please enter your main Nationstates nation: ");
-    let _ = stdout().flush();
-    stdin()
-        .read_line(&mut testn)
-        .expect("Error!");
-    if let Some('\n') = testn.chars().next_back() {
-        testn.pop();
-    }
-    if let Some('\r') = testn.chars().next_back() {
-        testn.pop();
-    }
-    return testn.parse::<String>().unwrap();
+    let nation: String = read!();
+    return nation
 }
 
-fn webunsafe(st: &str) -> String {
+fn webunsafe(st: &String) -> String {
     let s = str::replace(&st, "_", " ");
     let mut c = s.chars();
     match c.next() {
@@ -127,15 +174,26 @@ fn webunsafe(st: &str) -> String {
     }
 }
 
-fn listout() -> Vec<String> {
-    let mut nl: Vec<String> = Vec::new();
+fn listout () -> Vec<Nation> {
+    let mut nl: Vec<Nation> = Vec::new();
     if let Ok(lines) = read_lines("nations.txt") {
         for line in lines.flatten() {
-            println!("{}", &line);
-            let websafea = str::replace(&line, " ", "_");
+            let cutter = str::replace(&line, "(", "");
+            let cut = str::replace(&cutter, ")", "");
+            let v: Vec<&str> = cut.split(",").collect();
+            let _r = v[0].to_string();
+            let p = v[1];
+            let websafea = str::replace(&v[0], " ", "_");
             let websafeb = websafea.to_lowercase();
-            nl.push(websafeb);
-            println!("{:?}", nl);
+            let vconv = match p {
+                r#" "Strategic Specialist""# => Classification::Strategic,
+                r#" "Intel Specialist""# => Classification::Intel,
+                r#" "Military Specialist""# => Classification::Military,
+                r#" "Economic Specialist""# => Classification::Economic,
+                _ => panic!("The contents of nations.txt are irregular!"),
+            };
+            let finalo = Nation {n:websafeb,t:vconv};
+            nl.push(finalo);
         }
     }
     return nl
