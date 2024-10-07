@@ -1,3 +1,0 @@
-("garbelia", "Strategic Specialist")
-("ottia", "Intel Specialist")
-("garbelia_1", "Economic Specialist")
