@@ -1,4 +1,4 @@
-JEFFnet version 0.1.1
+JEFFnet version 0.1.2
 
 Currently just basically a rust rewrite of Cat Nuke Thing, minus anything that interacts with NS directly, any of the userscript stuff, or the containerise stuff. Those will come later.
 
