@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         jeffnet
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
+// @version      0.1.2
 // @description  Accompanying userscript for the JEFF N-day suite
 // @author       Garbelia
 // @match        *://*.nationstates.net/*
