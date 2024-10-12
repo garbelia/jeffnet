@@ -30,6 +30,10 @@ If you don't already have Rust installed -
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs/ | sh
 exec bash
 ```
+Any linux system beyond the absolute bare bones will have these packages already, but here are all the dependencies if you're on a debian-derivative.
+```
+sudo apt install git build-essential libssl-dev
+```
 Clone the repo -
 ```
 git clone https://github.com/garbelia/jeffnet.git
