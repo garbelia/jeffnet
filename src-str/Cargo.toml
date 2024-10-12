@@ -8,3 +8,4 @@ reqwest = { version = "0.12.8", features = ["blocking"]}
 scraper = { version = "0.20.0" }
 futures-io = { version = "0.3.31-beta" }
 getch-rs = "0.2.0"
+windows-sys = { version = "0.59.0", features = ["Win32_System_SystemInformation"] }

@@ -1238,6 +1238,7 @@ dependencies = [
  "getch-rs",
  "reqwest",
  "scraper",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
