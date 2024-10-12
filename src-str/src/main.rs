@@ -13,12 +13,13 @@ fn main() -> std::io::Result<()> {
     let mut tlist: Vec<(String,String)> = Vec::new();
     for n in nlist.iter() {
         let result = g.getch().unwrap();
-        if result == Key::Alt('s') {
+        if result == Key::Char('s') {
             tlist.push(scrape(n.clone()));
+            println!("{:?}",tlist)
         }
         loop {            
             match g.getch() {
-                Ok(Key::Alt('s')) => continue,
+                Ok(Key::Char('s')) => continue,
                 _ => break,
             }
         }

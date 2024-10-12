@@ -95,8 +95,8 @@ struct Nation {
 fn main() -> std::io::Result<()> {
     let mn = nenter();
     let nlist = listout();
-    let _ = fs::write("sheet.html",HTMLPRE);
-    let mut f = File::options().append(true).open("sheet.html")?;
+    let _ = fs::write("jnday_sheet.html",HTMLPRE);
+    let mut f = File::options().append(true).open("jnday_sheet.html")?;
     let mut intelv = Vec::new();
     let mut stratv = Vec::new();
     let mut milv = Vec::new();
@@ -109,50 +109,47 @@ fn main() -> std::io::Result<()> {
             Classification::Economic => ecov.push(n.n.clone()),
         }
     }
-    writeln!(&mut f, r#"<h2>Strategic Specialists</h2><table class = "center">"#)?;
+    writeln!(&mut f, r#"<h2>Strategic Specialists</h2><table id = "strat" class = "center">"#)?;
     for i in stratv.iter() {
         let n = str::replace(&i, r#"""#, "");
         let t = webunsafe(&n);
         writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-    }
-    writeln!(&mut f, r#"</table><h2>Economic Specialists</h2><table class = "center">"#)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#, n, n, n, mn)?;    }
+    writeln!(&mut f, r#"</table><h2>Economic Specialists</h2><table id = "econ" class = "center">"#)?;
     for i in ecov.iter() {
         let n = str::replace(&i, r#"""#, "");
         let t = webunsafe(&n);
         writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#, n, n, n, mn)?;
     }
-    writeln!(&mut f, r#"</table><h2>Intel Specialists</h2><table class = "center">"#)?;
+    writeln!(&mut f, r#"</table><h2>Intel Specialists</h2><table id = "intel" class = "center">"#)?;
     for i in intelv.iter() {
         let n = str::replace(&i, r#"""#, "");
         let t = webunsafe(&n);
         writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-    }
-    writeln!(&mut f, r#"</table><h2>Military Specialists</h2><table class = "center">"#)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#, n, n, n, mn)?;    }
+    writeln!(&mut f, r#"</table><h2>Military Specialists</h2><table id = "mil" class = "center">"#)?;
     for i in milv.iter() {
         let n = str::replace(&i, r#"""#, "");
         let t = webunsafe(&n);
         writeln!(&mut f, r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#, n, n, n, mn, t)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">Production</a></p></td>"#, n, n, n, mn)?;
-    }
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#, n, n, n, mn)?;
+        writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#, n, n, n, mn)?;    }
     writeln!(&mut f, "</table>")?;
     writeln!(&mut f, "{}", HTMLSUF)?;
     Ok(())
