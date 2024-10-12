@@ -26,19 +26,19 @@ The repo is only really public so the other tech folk can look at it, but I'm op
 ### Linux
 You know already, but just to make it easier:
 If you don't already have Rust installed -
-'''
+```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs/ | sh
 exec bash
-'''
+```
 Clone the repo -
-'''
+```
 git clone https://github.com/garbelia/jeffnet.git
 cd jeffnet
-'''
+```
 Run twice and follow the instructions in the script -
-'''
+```
 ./setup.sh
-'''
+```
 
 ### Mac 
 You're on your own¯\_(ツ)_/¯
