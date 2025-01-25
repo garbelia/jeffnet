@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         jeffnet
 // @namespace    http://tampermonkey.net/
-// @version      0.1.0
+// @version      0.1.3
 // @description  Accompanying userscript for the JEFF N-day suite
 // @author       Garbelia
 // @match        *://*.nationstates.net/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=nationstates.net
 // @include      */jnday_sheet.html
-// @require      https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?a4098
 // @require      https://unpkg.com/hotkeys-js/dist/hotkeys.min.js
 // @grant        GM_getValue
 // @grant        GM_setValue
