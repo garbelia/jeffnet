@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         jeffnet
 // @namespace    http://tampermonkey.net/
-// @version      0.1.2
+// @version      0.1.0
 // @description  Accompanying userscript for the JEFF N-day suite
 // @author       Garbelia
 // @match        *://*.nationstates.net/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=nationstates.net
 // @include      */jnday_sheet.html
 // @require      https://craig.global.ssl.fastly.net/js/mousetrap/mousetrap.min.js?a4098
+// @require      https://unpkg.com/hotkeys-js/dist/hotkeys.min.js
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        window.close
@@ -27,6 +28,7 @@ var links = 6
 var oldTarget = -1
 var oldFaction = -1
 var oldTargetNum = -1
+var keyPressed = false
 
 const stratl = document.querySelector("#strat").rows.length;
 const econl = document.querySelector("#econ").rows.length;
@@ -156,9 +158,7 @@ function update() {
        
     }
 
-    Mousetrap.bind(
-        ['w'],
-        function (ev) {
+    hotkeys('w', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus].click();
                 moveFocus()
@@ -166,18 +166,14 @@ function update() {
         }
     )
 
-    Mousetrap.bind(
-        ['e'],
-        function (ev) {
+    hotkeys('e', function (ev) {
             if (onSheet()) {
                 moveFocus()
             }
         }
     )
 
-    Mousetrap.bind(
-        ['1'],
-        function (ev) {
+    hotkeys('1', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus].style.color = "black";
                 focus = 0;
@@ -187,9 +183,7 @@ function update() {
         }
     )
 
-    Mousetrap.bind(
-        ['2'],
-        function (ev) {
+    hotkeys('2', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus].style.color = "black";
                 focus = links*(stratl);
@@ -199,9 +193,7 @@ function update() {
         }
     )
 
-    Mousetrap.bind(
-        ['3'],
-        function (ev) {
+    hotkeys('3', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus].style.color = "black";
                 focus = links*(stratl+econl);
@@ -211,9 +203,7 @@ function update() {
         }
     )
 
-    Mousetrap.bind(
-        ['4'],
-        function (ev) {
+    hotkeys('4', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus].style.color = "black";
                 focus = links*(stratl+econl+intell);
@@ -223,9 +213,7 @@ function update() {
         }
     )
 
-    Mousetrap.bind(
-        ['q'],
-        function (ev) {
+    hotkeys('q', function (ev) {
             document.querySelectorAll('a')[focus].style.color = "black";
             if (focus >= links) {
                 focus -= links;
@@ -235,25 +223,21 @@ function update() {
         }
     )
 
-    Mousetrap.bind(['b'], 
-        function(ev) {
+    hotkeys('b', function(ev) {
             window.history.back();
         }
     )
 
-    Mousetrap.bind(['x'],
-        function(ev) {
+    hotkeys('x', function(ev) {
             window.close();
         }
     )
 
-    Mousetrap.bind(['r'],
-        function (ev) {
+    hotkeys('r', function (ev) {
             window.location.reload();
         })
 
-    Mousetrap.bind(['g'],
-        function (ev) {
+    hotkeys('g', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 1].click();
                 moveFocus()
@@ -281,8 +265,7 @@ function update() {
         }
     )
 
-    Mousetrap.bind(['a'],
-        function (ev) {
+    hotkeys('a', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 1].click();
                 moveFocus()
@@ -296,8 +279,7 @@ function update() {
                 window.location.href = "https://www.nationstates.net/page=nukes/view=production";
             }
         })
-    Mousetrap.bind(['d'],
-        function (ev) {
+    hotkeys('d', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 1].click();
                 moveFocus()
@@ -310,8 +292,8 @@ function update() {
             }
         })
 
-    Mousetrap.bind(['s'],
-        function (ev) {
+
+    hotkeys('s', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 2].click();
                 moveFocus()
@@ -328,8 +310,7 @@ function update() {
             }
         })
 
-    Mousetrap.bind(['t'],
-        function (ev) {
+    hotkeys('t', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 3].click();
                 moveFocus()
@@ -360,8 +341,8 @@ function update() {
                 window.location.href = "https://www.nationstates.net/page=faction/fid=" +target + "/view=nations/start=" + Math.floor(Math.random() * targetNum);
             }
         })
-    Mousetrap.bind(['f'],
-        function (ev) {
+        
+    hotkeys('f', {keyup: true}, function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 4].click();
                 moveFocus()
@@ -378,8 +359,7 @@ function update() {
             }
         })
 
-    Mousetrap.bind(['j'],
-        function (ev) {
+    hotkeys('j', function (ev) {
             if (onSheet()) {
                 document.querySelectorAll('a')[focus + 5].click();
                 moveFocus()
