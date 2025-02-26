@@ -103,7 +103,7 @@ fn main() -> std::io::Result<()> {
     let mut ecov = Vec::new();
     for n in nlist.iter() {
         match n.t {
-            Classification::Intel => intelv.push(n.n.clone()),
+            Classification::Cleanup => intelv.push(n.n.clone()),
             Classification::Strategic => stratv.push(n.n.clone()),
             Classification::Military => milv.push(n.n.clone()),
             Classification::Economic => ecov.push(n.n.clone()),
@@ -130,7 +130,7 @@ fn main() -> std::io::Result<()> {
         writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#, n, n, n, mn)?;
         writeln!(&mut f, r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#, n, n, n, mn)?;
     }
-    writeln!(&mut f, r#"</table><h2>Intel Specialists</h2><table id = "intel" class = "center">"#)?;
+    writeln!(&mut f, r#"</table><h2>Cleanup Specialists</h2><table id = "intel" class = "center">"#)?;
     for i in intelv.iter() {
         let n = str::replace(&i, r#"""#, "");
         let t = webunsafe(&n);
@@ -184,7 +184,7 @@ fn listout () -> Vec<Nation> {
             let websafeb = websafea.to_lowercase();
             let vconv = match p {
                 r#" "Strategic Specialist""# => Classification::Strategic,
-                r#" "Intel Specialist""# => Classification::Intel,
+                r#" "Cleanup Specialist""# => Classification::Cleanup,
                 r#" "Military Specialist""# => Classification::Military,
                 r#" "Economic Specialist""# => Classification::Economic,
                 _ => panic!("The contents of nations.txt are irregular!"),
