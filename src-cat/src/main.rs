@@ -81,7 +81,7 @@ const HTMLSUF: &str = r#"
 #[derive(PartialEq)]
 enum Classification {
     Strategic,
-    Intel,
+    Cleanup,
     Military,
     Economic,
 }
