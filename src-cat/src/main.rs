@@ -131,35 +131,36 @@ fn main() -> std::io::Result<()> {
     )?;
     for n in stratv.iter() {
         let t = webunsafe(&n);
+        let l = &n.to_lowercase();
         writeln!(
             &mut f,
             r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#,
-            n, n, n, mn, t
+            l, l, l, mn, t
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
     }
     writeln!(
@@ -168,35 +169,36 @@ fn main() -> std::io::Result<()> {
     )?;
     for n in ecov.iter() {
         let t = webunsafe(&n);
+        let l = &n.to_lowercase();
         writeln!(
             &mut f,
             r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#,
-            n, n, n, mn, t
+            l, l, l, mn, t
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
     }
     writeln!(
@@ -205,35 +207,36 @@ fn main() -> std::io::Result<()> {
     )?;
     for n in intelv.iter() {
         let t = webunsafe(&n);
+        let l = &n.to_lowercase();
         writeln!(
             &mut f,
             r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#,
-            n, n, n, mn, t
+            l, l, l, mn, t
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
     }
     writeln!(
@@ -242,35 +245,36 @@ fn main() -> std::io::Result<()> {
     )?;
     for n in milv.iter() {
         let t = webunsafe(&n);
+        let l = &n.to_lowercase();
         writeln!(
             &mut f,
             r#"<tr><td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}?generated_by=jeffnet_by_garbelia_used_by_{}">{}</a></p></td>"#,
-            n, n, n, mn, t
+            l, l, l, mn, t
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=production?generated_by=jeffnet_by_garbelia_used_by_{}">production</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=1/view=incoming?generated_by=jeffnet_by_garbelia_used_by_{}">incoming</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=95/view=nations/start=0?generated_by=jeffnet_by_garbelia_used_by_{}">target</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=nukes/view=targets?generated_by=jeffnet_by_garbelia_used_by_{}">launch</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
         writeln!(
             &mut f,
             r#"<td><p><a target="_blank" href="https://www.nationstates.net/container={}/nation={}/nation={}/page=faction/fid=0?consider_join_faction=1&join_faction=1?generated_by=jeffnet_by_garbelia_used_by_{}">join</a></p></td>"#,
-            n, n, n, mn
+            l, l, l, mn
         )?;
     }
     writeln!(&mut f, "</table>")?;
